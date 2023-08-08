@@ -1,0 +1,86 @@
+export ZOPEN_GIT_URL="https://github.com/muesli/termenv.git"
+export ZOPEN_GIT_DEPS="git comp_go wharf"
+export ZOPEN_COMP="GO"
+export ZOPEN_TYPE="GIT"
+
+export ZOPEN_CONFIGURE="zopen_wharf"
+export ZOPEN_CONFIGURE_MINIMAL=1
+export ZOPEN_MAKE="go"
+export ZOPEN_MAKE_OPTS="build"
+export ZOPEN_MAKE_MINIMAL=1
+export ZOPEN_INSTALL="zopen_install"
+export ZOPEN_CHECK="skip"
+export ZOPEN_CLEAN="zopen_clean"
+
+zopen_init()
+{
+  mkdir -p "$ZOPEN_INSTALL_DIR/bin"
+  chmod -R u+w "$ZOPEN_INSTALL_DIR"
+  # Go installs binaries, so create the bin dir as well
+  export GOBIN=$ZOPEN_INSTALL_DIR/bin
+  export GOPATH=$ZOPEN_INSTALL_DIR
+  unset CC CXX
+  export PATH=$PATH:$GOROOT/go-build-zos/bin
+}
+
+
+
+
+
+zopen_wharf()
+{
+  cd ..
+  go work init
+  go work use ./termenv
+  wharf ./termenv
+  cd ./termenv
+}
+
+zopen_install()
+{
+  go install
+}
+
+zopen_clean()
+{
+  rm -rf ../.wharf_cache ../go.work* ../wharf_port
+}
+
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+
+  # Echo the following information to gauge build health
+  echo "actualFailures:0"
+  echo "totalTests:1"
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+zopen_append_to_env()
+{
+  # echo envars outside of PATH, MANPATH, LIBPATH
+}
+
+zopen_append_to_setup()
+{
+  # echo commands that will run when installing via setup.sh
+}
+
+zopen_get_version()
+{
+  # Modify to echo the version of your tool/library
+  # Rather than hardcoding the version, obtain the version by running the tool/library
+  echo "1.0.0"
+}
+
+
+
+
+
+
+
+
