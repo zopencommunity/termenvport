@@ -1,5 +1,5 @@
 export ZOPEN_GIT_URL="https://github.com/muesli/termenv.git"
-export ZOPEN_GIT_DEPS="git comp_go wharf"
+export ZOPEN_GIT_DEPS="git check_go wharf"
 export ZOPEN_COMP="GO"
 export ZOPEN_TYPE="GIT"
 export ZOPEN_CATEGORIES="utilities"
